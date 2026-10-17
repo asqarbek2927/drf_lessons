@@ -37,8 +37,29 @@ class ProductPostSerializer(serializers.Serializer):
             raise serializers.ValidationError("Product haqida koproq malumot bering!!!")
         return attr
 
+    # def validate(self, attrs): #qisqa validatelar uchun
+    #     title = attrs.get("title")
+    #     price = attrs.get("price")
+    #     description = attrs.get("description")
+
+
+
 class ProductListSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     name = serializers.CharField(max_length=200)
     price = serializers.DecimalField(max_digits=10, decimal_places=2)
     description = serializers.CharField()
+
+
+class ProductCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = [
+            'id',
+            'name',
+            'price',
+            'description'
+        ]
+        extra_kwargs = {
+            'id': {"read_only":True}
+        }

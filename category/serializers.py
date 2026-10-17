@@ -28,7 +28,7 @@ class CategoryCreateSerializer(serializers.Serializer):
     #         title=title
     #     )
     def create(self, validated_data):
-        return Category(**validated_data)
+        return Category.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get("title", instance.title)
