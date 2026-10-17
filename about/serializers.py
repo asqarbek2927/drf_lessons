@@ -16,3 +16,18 @@ class AboutCreateSerializer(serializers.Serializer):
     def create(self, validated_data):
         return About.objects.create(**validated_data)
 
+    def validate(self, attrs):
+        name = attrs.get("name")
+        price = attrs.get("price")
+        description = attrs.get("description")
+
+        if len(name) <= 4:
+            raise serializers.ValidationError("Name 4ta harfdan uzunroq bolishi kerak")
+
+        if price <= 999:
+            raise serializers.ValidationError("Minimum 1000 som bolishi kerak narxi producti!!!")
+
+        if len(description) < 39:
+            raise serializers.ValidationError("Produtiz haqida koproq informatsiya yozing!!!")
+        return attrs
+
